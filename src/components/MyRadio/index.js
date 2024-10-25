@@ -1,0 +1,65 @@
+import React from 'react';
+import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { colors, fonts, MyDimensi } from '../../utils';
+
+export default function MyRadio({ mainLabel, options = [], selectedOption, onPress }) {
+    return (
+        <View style={styles.container}>
+            {/* Label Utama di atas */}
+            <Text style={styles.mainLabel}>{mainLabel}</Text>
+
+            {/* Opsi Radio Buttons */}
+            {options.map((option, index) => (
+                <TouchableWithoutFeedback key={index} onPress={() => onPress(option)}>
+                    <View style={styles.radioContainer}>
+                        <View style={styles.radioButton}>
+                            {selectedOption === option && <View style={styles.radioButtonSelected} />}
+                        </View>
+                        <Text style={styles.radioLabel}>{option}</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+            ))}
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'flex-start',  // Align kiri agar sesuai dengan layout biasa
+        marginVertical: 10,
+    },
+    mainLabel: {
+        fontSize: 15,  // Ukuran font label utama
+        fontFamily: fonts.primary[600],
+        color: colors.primary,
+        marginBottom: 10,  // Jarak antara label utama dan radio buttons
+    },
+    radioContainer: {
+        flexDirection: 'row',  // Agar label berada di kanan radio button
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    radioButton: {
+        width: 20,   // Ukuran kotak besar
+        height: 20,
+        backgroundColor: colors.white,
+        borderColor: colors.primary,  // Warna border
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius:5,
+        marginLeft:10
+    },
+    radioButtonSelected: {
+        width: 20,   // Ukuran kotak kecil di dalamnya
+        height: 20,
+        backgroundColor: colors.primary,  // Warna kotak kecil saat dipilih
+        borderRadius:5
+    },
+    radioLabel: {
+        marginLeft: 15,  // Jarak antara radio button dan labelnya
+        fontSize: 15,
+        fontFamily: fonts.primary[600],
+        color: colors.primary,
+    },
+});
