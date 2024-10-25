@@ -182,7 +182,7 @@ export default function Home({ navigation, route }) {
         <MyGap jarak={20}/>
 
         <View>
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => navigation.navigate('Konsultasi')}>
             <View  style={{
               flex:1,
               backgroundColor:'white',

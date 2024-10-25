@@ -255,7 +255,7 @@ export default function IsiScreening({navigation}) {
     padding:10,
     marginBottom:20
 }}>
-    <MyButton title="Selesai"/>
+    <MyButton onPress={() => navigation.navigate('IsiScreeningLanjutan')} title="Selesai"/>
 </View>
 
 

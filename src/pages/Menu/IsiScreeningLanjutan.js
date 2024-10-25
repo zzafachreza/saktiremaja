@@ -16,6 +16,12 @@ export default function IsiScreeningLanjutan({navigation}) {
     }));
 };
 
+
+
+const hasil = () => {
+
+}
+
   return (
     <View style={{
         flex:1,
@@ -241,7 +247,10 @@ export default function IsiScreeningLanjutan({navigation}) {
     padding:10,
     marginBottom:20
 }}>
-    <MyButton title="Selesai"/>
+
+{/* nanti buatkan handle selesai dan memproses hasil dari isi screening sebelumnya */}
+{/* nanti navigate ke halaman HasilScreening */}
+    <MyButton  title="Selesai"/>
 </View>
 
 
