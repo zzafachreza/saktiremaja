@@ -85,6 +85,7 @@ const MainApp = () => {
   return (
     <Tab.Navigator initialRouteName='Produk' tabBar={props => <BottomNavigator {...props} />}>
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Account" component={Account} />
 
     </Tab.Navigator>
   );
@@ -114,7 +115,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="Login"
         component={Login}
         options={{
@@ -124,7 +125,7 @@ export default function Router() {
       />
 
 
-<Stack.Screen
+      <Stack.Screen
         name="Register"
         component={Register}
         options={{
@@ -143,7 +144,7 @@ export default function Router() {
       />
 
 
-<Stack.Screen
+      <Stack.Screen
         name="IsiScreening"
         component={IsiScreening}
         options={{
@@ -152,7 +153,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="IsiScreeningLanjutan"
         component={IsiScreeningLanjutan}
         options={{
@@ -161,7 +162,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="HasilScreening"
         component={HasilScreening}
         options={{
@@ -172,7 +173,7 @@ export default function Router() {
 
 
 
-<Stack.Screen
+      <Stack.Screen
         name="Konsultasi"
         component={Konsultasi}
         options={{

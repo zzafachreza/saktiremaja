@@ -87,136 +87,136 @@ export default function Home({ navigation, route }) {
           padding: 10
         }}>
 
-        <View style={{
-          padding:10,
-          flexDirection:"row",
-          justifyContent:"space-between",
-          alignItems:"center",
-          marginTop:50
-        }}>
-      <View>
-        <Text style={{
-          fontFamily:fonts.primary[700],
-          fontSize:20,
-          color:colors.white,
-
-        }}>Hi, Riri Indriyani!</Text>
-                <Text style={{
-          fontFamily:fonts.primary[700],
-          fontSize:20,
-          color:colors.white,
-          
-        }}>SAKTI REMAJA</Text>
-      </View>
-
-      <View style={{
-        alignItems:"center"
-      }}>
-        <Image style={{
-          width:61,
-          height:54,
-
-        }} source={require('../../assets/logohome.png')}/>
-      </View>
-
-        </View>
-
-
-        {/* slider */}
-        <View style={{
-          padding:10,
-  
-          marginTop:-0,
-          alignItems:'center'
-        }}>
-
-        <Image style={{
-          width:320,
-          height:213,
-        }} source={require('../../assets/dummy_slider.png')}/>
-          
-        </View>
-        {/* end slider */}
-
-        {/* main menu */}
-        <View style={{
-          margin:10,
-          padding:0,
-        }}>
-
-        <View>
-          <TouchableWithoutFeedback onPress={() => navigation.navigate('Screening')}>
-            <View  style={{
-              flex:1,
-              backgroundColor:'white',
-              padding:10,
-              borderRadius:20,
-              flexDirection:"row",
-              justifyContent:"space-between",
-              alignItems:'center',
-              borderWidth:2,
-              borderColor:colors.primary
-              
-            }}>
+          <View style={{
+            padding: 10,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: 50
+          }}>
             <View>
               <Text style={{
-                fontFamily:fonts.primary[700],
-                fontSize:35,
-                color:colors.primary,
-                top:-2
+                fontFamily: fonts.primary[700],
+                fontSize: 20,
+                color: colors.white,
 
-              }}>Screening</Text>
-            </View>
-
-            <View>
-              <Image style={{
-                width:74,
-                height:74,
-              }} source={require('../../assets/screening_logo.png')}/>
-            </View>
-
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-
-        <MyGap jarak={20}/>
-
-        <View>
-          <TouchableWithoutFeedback onPress={() => navigation.navigate('Konsultasi')}>
-            <View  style={{
-              flex:1,
-              backgroundColor:'white',
-              padding:10,
-              borderRadius:20,
-              flexDirection:"row",
-              justifyContent:"space-between",
-              alignItems:'center',
-              borderWidth:2,
-              borderColor:colors.primary
-              
-            }}>
-            <View>
+              }}>Hi, {user.nama_lengkap}</Text>
               <Text style={{
-                fontFamily:fonts.primary[700],
-                fontSize:35,
-                color:colors.primary,
-                top:-2
+                fontFamily: fonts.primary[700],
+                fontSize: 20,
+                color: colors.white,
 
-              }}>Konsultasi</Text>
+              }}>SAKTI REMAJA</Text>
             </View>
+
+            <View style={{
+              alignItems: "center"
+            }}>
+              <Image style={{
+                width: 61,
+                height: 54,
+
+              }} source={require('../../assets/logohome.png')} />
+            </View>
+
+          </View>
+
+
+          {/* slider */}
+          <View style={{
+            padding: 10,
+
+            marginTop: -0,
+            alignItems: 'center'
+          }}>
+
+            <Image style={{
+              width: 320,
+              height: 213,
+            }} source={require('../../assets/dummy_slider.png')} />
+
+          </View>
+          {/* end slider */}
+
+          {/* main menu */}
+          <View style={{
+            margin: 10,
+            padding: 0,
+          }}>
 
             <View>
-              <Image style={{
-                width:74,
-                height:74,
-              }} source={require('../../assets/konsultasi_Logo.png')}/>
+              <TouchableWithoutFeedback onPress={() => navigation.navigate('Screening')}>
+                <View style={{
+                  flex: 1,
+                  backgroundColor: 'white',
+                  padding: 10,
+                  borderRadius: 20,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: 'center',
+                  borderWidth: 2,
+                  borderColor: colors.primary
+
+                }}>
+                  <View>
+                    <Text style={{
+                      fontFamily: fonts.primary[700],
+                      fontSize: 35,
+                      color: colors.primary,
+                      top: -2
+
+                    }}>Screening</Text>
+                  </View>
+
+                  <View>
+                    <Image style={{
+                      width: 74,
+                      height: 74,
+                    }} source={require('../../assets/screening_logo.png')} />
+                  </View>
+
+                </View>
+              </TouchableWithoutFeedback>
             </View>
 
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
+            <MyGap jarak={20} />
 
-        </View>
+            <View>
+              <TouchableWithoutFeedback onPress={() => navigation.navigate('Konsultasi')}>
+                <View style={{
+                  flex: 1,
+                  backgroundColor: 'white',
+                  padding: 10,
+                  borderRadius: 20,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: 'center',
+                  borderWidth: 2,
+                  borderColor: colors.primary
+
+                }}>
+                  <View>
+                    <Text style={{
+                      fontFamily: fonts.primary[700],
+                      fontSize: 35,
+                      color: colors.primary,
+                      top: -2
+
+                    }}>Konsultasi</Text>
+                  </View>
+
+                  <View>
+                    <Image style={{
+                      width: 74,
+                      height: 74,
+                    }} source={require('../../assets/konsultasi_Logo.png')} />
+                  </View>
+
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+
+          </View>
 
 
         </View>

@@ -29,15 +29,15 @@ export default function MyCalendar({
 
     <View
       style={{
-        
+
       }}>
 
       <Text
         style={{
-        fontFamily:fonts.primary[700],
+          fontFamily: fonts.primary[700],
           color: colors.white,
           marginBottom: 10,
-          fontSize:17
+          fontSize: 17
         }}>
         {label}
       </Text>
@@ -55,7 +55,7 @@ export default function MyCalendar({
           left: 12,
           top: 13,
         }}>
-          <Icon type='ionicon' name='calendar' color={colors.primary} size={24} />
+          <Icon type='ionicon' name='calendar' color={Color.blueGray[300]} size={24} />
         </View>
         <Text style={{
           position: 'absolute',

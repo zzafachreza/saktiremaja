@@ -82,7 +82,7 @@ export default function ({ navigation, route }) {
                 <Text
                     style={{
                         ...fonts.headline5,
-                        color: Color.primary[900],
+                        color: colors.primary,
                     }}>
                     {label}
                 </Text>
@@ -118,37 +118,18 @@ export default function ({ navigation, route }) {
                         margin: 5,
                         flex: 1,
                     }}>
-                        <View style={{
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                            <View style={{
-                                width: 100,
-                                height: 100,
-                                borderWidth: 1,
-                                borderColor: Color.blueGray[100],
-                                overflow: 'hidden',
-                                borderRadius: 20,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
 
-                                <Image source={{
-                                    uri: user.foto_user
-                                }} style={{
-                                    width: 100,
-                                    height: 100,
-
-                                }} />
-
-                            </View>
-                        </View>
                         <View style={{ padding: 10, }}>
+                            <MyList label="Nama Sekolah" value={user.nama_sekolah} />
                             <MyList label="Nama Lengkap" value={user.nama_lengkap} />
+                            <MyList label="Tanggal Lahir" value={moment(user.tanggal_lahir).format('dddd, DD MMMM YYYY') + ' ( ' + moment().diff(user.tanggal_lahir, 'year') + ' Tahun )'} />
+                            <MyList label="Jenis Kelamin" value={user.jenis_kelamin} />
                             <MyList label="Username" value={user.username} />
                             <MyList label="Telepon" value={user.telepon} />
-                            <MyList label="Jenis Kelamin" value={user.jenis_kelamin} />
-                            <MyList label="Tanggal Lahir" value={moment(user.tanggal_lahir).format('dddd, DD MMMM YYYY') + ' ( ' + moment().diff(user.tanggal_lahir, 'year') + ' Tahun )'} />
+                            <MyList label="Alamat" value={user.alamat} />
+
+
+
                         </View>
                         {/* data detail */}
                     </View>
@@ -157,9 +138,9 @@ export default function ({ navigation, route }) {
                 <View style={{
                     padding: 20,
                 }}>
-                    <MyButton warna={colors.primary} title="Edit Profile" Icons="create-outline" onPress={() => navigation.navigate('AccountEdit', user)} />
+                    <MyButton warna={colors.primary} title="Edit Profile" Icons="create-outline" iconColor={colors.white} onPress={() => navigation.navigate('AccountEdit', user)} />
                     <MyGap jarak={10} />
-                    <MyButton onPress={btnKeluar} warna={colors.secondary} title="Log Out" Icons="log-out-outline" iconColor={colors.white} colorText={colors.white} />
+                    <MyButton onPress={btnKeluar} warna={colors.black} title="Log Out" Icons="log-out-outline" iconColor={colors.white} colorText={colors.white} />
                 </View>
             </ScrollView>
         </SafeAreaView >

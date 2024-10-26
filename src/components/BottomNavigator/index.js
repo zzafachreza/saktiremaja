@@ -44,12 +44,12 @@ export default function BottomNavigator({ state, descriptors, navigation }) {
 
   return (
     <View style={{
-      backgroundColor: colors.white, 
+      backgroundColor: colors.white,
       flexDirection: 'row',
       height: 50,
-    
-   
-      
+
+
+
     }}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
@@ -87,7 +87,7 @@ export default function BottomNavigator({ state, descriptors, navigation }) {
         let Newlabel = '';
 
         if (label === 'Home') {
-          iconName = 'home-outline';
+          iconName = 'home';
           Newlabel = '';
         } else if (label === 'Riwayat') {
           iconName = 'reload-circle';
@@ -141,11 +141,11 @@ export default function BottomNavigator({ state, descriptors, navigation }) {
                   height: 65,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  top:5,
-                 
+                  top: 5,
+
                 }}>
 
-                <Icon type='ionicon' name={iconName} size={25} color={isFocused ? colors.primary : colors.secondary} />
+                <Icon type='ionicon' name={isFocused ? iconName : iconName + '-outline'} size={25} color={isFocused ? colors.primary : colors.primary} />
                 <Text style={{
                   marginTop: 4,
                   fontFamily: fonts.body2.fontFamily,

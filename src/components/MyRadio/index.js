@@ -2,18 +2,18 @@ import React from 'react';
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { colors, fonts, MyDimensi } from '../../utils';
 
-export default function MyRadio({ mainLabel, options = [], selectedOption, onPress }) {
+export default function MyRadio({ label, options = [], value, onPress }) {
     return (
         <View style={styles.container}>
             {/* Label Utama di atas */}
-            <Text style={styles.mainLabel}>{mainLabel}</Text>
+            <Text style={styles.mainLabel}>{label}</Text>
 
             {/* Opsi Radio Buttons */}
             {options.map((option, index) => (
                 <TouchableWithoutFeedback key={index} onPress={() => onPress(option)}>
                     <View style={styles.radioContainer}>
                         <View style={styles.radioButton}>
-                            {selectedOption === option && <View style={styles.radioButtonSelected} />}
+                            {value === option && <View style={styles.radioButtonSelected} />}
                         </View>
                         <Text style={styles.radioLabel}>{option}</Text>
                     </View>
@@ -47,14 +47,14 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius:5,
-        marginLeft:10
+        borderRadius: 5,
+        marginLeft: 10
     },
     radioButtonSelected: {
         width: 20,   // Ukuran kotak kecil di dalamnya
         height: 20,
         backgroundColor: colors.primary,  // Warna kotak kecil saat dipilih
-        borderRadius:5
+        borderRadius: 5
     },
     radioLabel: {
         marginLeft: 15,  // Jarak antara radio button dan labelnya
