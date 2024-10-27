@@ -89,8 +89,8 @@ export default function BottomNavigator({ state, descriptors, navigation }) {
         if (label === 'Home') {
           iconName = 'home';
           Newlabel = '';
-        } else if (label === 'Riwayat') {
-          iconName = 'reload-circle';
+        } else if (label === 'Pedoman') {
+          iconName = 'book';
           Newlabel = '';
         } else if (label === 'TanyaJawab') {
           iconName = 'chatbubbles-outline';

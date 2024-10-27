@@ -10,10 +10,11 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   SafeAreaView,
-  ScrollView
+  ScrollView,
+  FlatList
 } from 'react-native';
 import { MyButton, MyCalendar, MyGap, MyHeader, MyInput, MyPicker } from '../../components';
-import { MyDimensi, colors, fonts, windowHeight, windowWidth, Color } from '../../utils';
+import { MyDimensi, colors, fonts, windowHeight, windowWidth, Color, POSTDataByTable } from '../../utils';
 import { MYAPP, apiURL, api_token, getData, storeData } from '../../utils/localStorage';
 import { BackgroundImage } from 'react-native-elements/dist/config';
 import { color } from 'react-native-reanimated';
@@ -24,6 +25,7 @@ import MyLoading from '../../components/MyLoading';
 
 import { Icon } from 'react-native-elements';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { useIsFocused } from '@react-navigation/native';
 
 
 const MyMenu = ({ onPress, img, label, backgroundColor, desc }) => {
@@ -63,16 +65,28 @@ const MyMenu = ({ onPress, img, label, backgroundColor, desc }) => {
 
 export default function Home({ navigation, route }) {
   const [user, setUser] = useState({});
+  const [data, setData] = useState([]);
 
   const __getUser = () => {
     getData('user').then(u => {
       setUser(u)
+      if (u.level == 'Petugas UKS') {
+        POSTDataByTable('hasil_uks', {
+          fid_sekolah: u.fid_sekolah
+        }).then(res => {
+          console.log(res.data);
+          setData(res.data)
+        })
+      }
     })
   }
 
+  const isFocus = useIsFocused();
   useEffect(() => {
-    __getUser();
-  }, [])
+    if (isFocus) {
+      __getUser();
+    }
+  }, [isFocus])
   return (
     <ImageBackground source={require('../../assets/bghome.png')} style={{
       flex: 1,
@@ -81,47 +95,56 @@ export default function Home({ navigation, route }) {
       height: "100%"
     }}>
 
-      <ScrollView>
+
+
+
+
+      <View style={{
+        marginHorizontal: 10,
+        padding: 10,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginTop: 50
+      }}>
+        <View>
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: 20,
+            color: colors.white,
+
+          }}>Hi, {user.nama_lengkap}</Text>
+
+          <Text style={{
+            fontFamily: fonts.secondary[700],
+            fontSize: 20,
+            color: colors.white,
+
+          }}>SAKTI REMAJA</Text>
+          <Text style={{
+            fontFamily: fonts.secondary[400],
+            fontSize: 14,
+            color: colors.white,
+
+          }}>{user.nama_sekolah}</Text>
+        </View>
 
         <View style={{
-          padding: 10
+          alignItems: "center"
         }}>
+          <Image style={{
+            width: 61,
+            height: 54,
 
-          <View style={{
-            padding: 10,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: 50
-          }}>
-            <View>
-              <Text style={{
-                fontFamily: fonts.primary[700],
-                fontSize: 20,
-                color: colors.white,
+          }} source={require('../../assets/logohome.png')} />
+        </View>
 
-              }}>Hi, {user.nama_lengkap}</Text>
-              <Text style={{
-                fontFamily: fonts.primary[700],
-                fontSize: 20,
-                color: colors.white,
-
-              }}>SAKTI REMAJA</Text>
-            </View>
-
-            <View style={{
-              alignItems: "center"
-            }}>
-              <Image style={{
-                width: 61,
-                height: 54,
-
-              }} source={require('../../assets/logohome.png')} />
-            </View>
-
-          </View>
+      </View>
 
 
+      {user.level == 'Siswa' &&
+
+        <ScrollView>
           {/* slider */}
           <View style={{
             padding: 10,
@@ -218,9 +241,185 @@ export default function Home({ navigation, route }) {
 
           </View>
 
+        </ScrollView>
+
+      }
+
+      {user.level == 'Petugas UKS' &&
+        <View style={{
+          flex: 1,
+          padding: 16,
+        }}>
+          <View style={{
+            marginBottom: 10,
+            marginHorizontal: 8,
+          }}>
+            <MyInput placeholder="Cari data siswa . . ." iconname="search" />
+          </View>
+          <FlatList data={data} renderItem={({ item, index }) => {
+            return (
+
+              <TouchableWithoutFeedback onPress={() => {
+                navigation.navigate('ScreeningDetail2', item)
+
+              }}>
+                <View style={{
+                  backgroundColor: colors.white,
+                  flex: 1,
+                  borderWidth: 1,
+                  borderColor: colors.primary,
+                  padding: 10,
+                  position: 'relative',
+                  borderRadius: 10,
+                  // margin: 10,
+                  marginHorizontal: 5,
+                  marginVertical: 10,
+                  overflow: 'hidden'
+                }}>
+                  <View style={{
+                    flexDirection: 'row'
+                  }}>
+                    <Text style={{
+                      flex: 0.5,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>Nama Lengkap</Text>
+                    <Text style={{
+                      flex: 0.05,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>:</Text>
+                    <Text style={{
+                      flex: 1,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>{item.nama_lengkap}</Text>
+                  </View>
+                  <View style={{
+                    flexDirection: 'row'
+                  }}>
+                    <Text style={{
+                      flex: 0.5,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>Umur</Text>
+                    <Text style={{
+                      flex: 0.05,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>:</Text>
+                    <Text style={{
+                      flex: 1,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>{moment().diff(item.tanggal_lahir, 'year')} Tahun</Text>
+                  </View>
+                  <View style={{
+                    flexDirection: 'row'
+                  }}>
+                    <Text style={{
+                      flex: 0.5,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>Jenis Kelamin</Text>
+                    <Text style={{
+                      flex: 0.05,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>:</Text>
+                    <Text style={{
+                      flex: 1,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>{item.jenis_kelamin}</Text>
+                  </View>
+                  <View style={{
+                    flexDirection: 'row'
+                  }}>
+                    <Text style={{
+                      flex: 0.5,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>Nomor Telepon</Text>
+                    <Text style={{
+                      flex: 0.05,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>:</Text>
+                    <Text style={{
+                      flex: 1,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>{item.telepon}</Text>
+                  </View>
+                  <View style={{
+                    paddingBottom: 5,
+                    borderBottomWidth: 1,
+                    borderBottomColor: Color.blueGray[300],
+                    flexDirection: 'row'
+                  }}>
+                    <Text style={{
+                      flex: 0.5,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>Alamat</Text>
+                    <Text style={{
+                      flex: 0.05,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>:</Text>
+                    <Text style={{
+                      flex: 1,
+                      ...fonts.body3,
+                      color: colors.primary
+                    }}>{item.alamat}</Text>
+                  </View>
+                  <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                  }}>
+                    <Text style={{
+                      flex: 1,
+                      ...fonts.body3,
+                      color: item.hasil == 'NORMAL' ? colors.success : colors.danger
+                    }}>
+                      {item.hasil == 'NORMAL' ? 'Selamat kamu tidak mengalami masalah psikologis dan emosional, yuk pelajari cara agar kamu tetap sehat dan jauh dari masalah psikososial.' : 'Kamu mengalami gejala gangguan mental emosional segera menghubungi petugas untuk mendapatkan bantuan'}
+                    </Text>
+                    <Image
+                      source={item.hasil == 'NORMAL' ? require('../../assets/done_icon.png') : require('../../assets/warning_red.png')}
+                      style={{
+                        width: windowWidth / 8,
+                        height: windowWidth / 8,
+                      }}
+                    />
+                  </View>
+
+                  <View style={{
+                    marginTop: 10,
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                  }}>
+                    <Text style={{
+                      flex: 1,
+                      ...fonts.body3,
+                      color: colors.primary,
+                    }}>
+                      {moment(item.tanggal).format('DD MMMM YYYY')}
+                    </Text>
+                    <Icon type='ionicon' name='search' color={colors.primary} />
+                  </View>
+
+                </View>
+              </TouchableWithoutFeedback>
+            )
+          }} />
 
         </View>
-      </ScrollView>
+
+      }
+
+
+
     </ImageBackground>
   )
 }

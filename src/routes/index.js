@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -66,6 +66,9 @@ import {
   IsiScreeningLanjutan,
   HasilScreening,
   Konsultasi,
+  HasilScreening2,
+  ScreeningDetail,
+  ScreeningDetail2,
 
 
 
@@ -74,6 +77,7 @@ import { colors } from '../utils';
 import { Icon } from 'react-native-elements';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigator } from '../components';
+import { getData } from '../utils/localStorage';
 
 
 
@@ -82,9 +86,16 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const MainApp = () => {
+
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    getData('user').then(u => setUser(u))
+  }, [])
+
   return (
     <Tab.Navigator initialRouteName='Produk' tabBar={props => <BottomNavigator {...props} />}>
       <Tab.Screen name="Home" component={Home} />
+      {user.level == 'Petugas UKS' && <Tab.Screen name="Pedoman" component={Petunjuk} />}
       <Tab.Screen name="Account" component={Account} />
 
     </Tab.Navigator>
@@ -97,6 +108,29 @@ export default function Router() {
       <Stack.Screen
         name="Splash"
         component={Splash}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="HasilScreening2"
+        component={HasilScreening2}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="ScreeningDetail"
+        component={ScreeningDetail}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="ScreeningDetail2"
+        component={ScreeningDetail2}
         options={{
           headerShown: false,
         }}

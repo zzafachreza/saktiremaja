@@ -1,0 +1,482 @@
+import { ActivityIndicator, Alert, FlatList, Image, Linking, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Color, MyDimensi, POSTDataByTable, colors, fonts, getDataByTable, windowHeight, windowWidth } from '../../utils'
+import { Icon } from 'react-native-elements';
+import YoutubePlayer from "react-native-youtube-iframe";
+import axios from 'axios';
+import { apiURL, getData, MYAPP } from '../../utils/localStorage';
+import moment from 'moment';
+import { MyButton, MyHeader, MyRadio } from '../../components';
+import { useToast } from 'react-native-toast-notifications';
+
+export default function ScreeningDetail2({ navigation, route }) {
+    const ITEM = route.params;
+    const [data, setData] = useState({});
+    const [data2, setData2] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState({});
+    const [youtube, setYoutube] = useState([]);
+    const getDataTransaksi = () => {
+        POSTDataByTable('youtube_all').then(res => {
+            console.log(res.data);
+            setYoutube(res.data);
+        })
+        getData('user').then(u => setUser(u))
+        // setLoading(true);
+        getDataByTable('soal_utama').then(res => {
+
+            setData(res.data)
+        })
+
+        getDataByTable('soal_lanjutan').then(res => {
+
+            setData2(res.data)
+        })
+    }
+
+    const toast = useToast();
+
+    const hapus = () => {
+
+        Alert.alert(MYAPP, 'Apakah kamu yakin akan hapus ini ?', [
+            { text: 'Tidak' },
+            {
+                text: 'Ya',
+                onPress: () => {
+                    POSTDataByTable('delete_hasil', {
+                        id_hasil: ITEM.id_hasil,
+                    }).then(res => {
+                        if (res.data.status == 200) {
+                            toast.show(res.data.message, {
+                                type: 'success'
+                            });
+                            navigation.goBack();
+                        }
+                    })
+                }
+            }
+        ])
+
+    }
+    useEffect(() => {
+        getDataTransaksi();
+    }, []);
+
+    return (
+        <SafeAreaView style={{
+            flex: 1,
+            backgroundColor: colors.white
+        }}>
+
+            <MyHeader title="Hasil Screening" onPress={() => navigation.goBack()} />
+            {!loading &&
+                <View style={{
+                    flex: 1,
+                }}>
+                    <ScrollView>
+
+                        <View style={{
+                            padding: 16
+                        }}>
+                            <View style={{
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={{
+                                    flex: 0.5,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>Nama Lengkap</Text>
+                                <Text style={{
+                                    flex: 0.05,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>{ITEM.nama_lengkap}</Text>
+                            </View>
+                            <View style={{
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={{
+                                    flex: 0.5,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>Umur</Text>
+                                <Text style={{
+                                    flex: 0.05,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>{moment().diff(ITEM.tanggal_lahir, 'year')} Tahun</Text>
+                            </View>
+                            <View style={{
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={{
+                                    flex: 0.5,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>Jenis Kelamin</Text>
+                                <Text style={{
+                                    flex: 0.05,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>{ITEM.jenis_kelamin}</Text>
+                            </View>
+                            <View style={{
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={{
+                                    flex: 0.5,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>Nomor Telepon</Text>
+                                <Text style={{
+                                    flex: 0.05,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>{ITEM.telepon}</Text>
+                            </View>
+                            <View style={{
+                                paddingBottom: 5,
+                                borderBottomWidth: 1,
+                                borderBottomColor: Color.blueGray[300],
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={{
+                                    flex: 0.5,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>Alamat</Text>
+                                <Text style={{
+                                    flex: 0.05,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>{ITEM.alamat}</Text>
+                            </View>
+                        </View>
+                        <View style={{
+                            flex: 1,
+                            padding: 10,
+                            position: 'relative',
+                            borderRadius: 10,
+                            // margin: 10,
+                            marginHorizontal: 5,
+                            marginVertical: 10,
+                            overflow: 'hidden'
+                        }}>
+                            <View style={{
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.body3,
+                                    color: ITEM.hasil == 'NORMAL' ? colors.success : colors.danger
+                                }}>
+                                    {ITEM.hasil == 'NORMAL' ? 'Selamat kamu tidak mengalami masalah psikologis dan emosional, yuk pelajari cara agar kamu tetap sehat dan jauh dari masalah psikososial.' : 'Kamu mengalami gejala gangguan mental emosional segera menghubungi petugas untuk mendapatkan bantuan'}
+                                </Text>
+                                <Image
+                                    source={ITEM.hasil == 'NORMAL' ? require('../../assets/done_icon.png') : require('../../assets/warning_red.png')}
+                                    style={{
+                                        width: windowWidth / 8,
+                                        height: windowWidth / 8,
+                                    }}
+                                />
+                            </View>
+
+                            <View style={{
+                                marginTop: 10,
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.body3,
+                                    color: colors.primary,
+                                }}>
+                                    {moment(ITEM.tanggal).format('DD MMMM YYYY')}
+                                </Text>
+
+                            </View>
+
+                        </View>
+
+                        <FlatList data={data} showsVerticalScrollIndicator={false} renderItem={({ item, index }) => {
+                            return <View style={{
+                                padding: 8,
+                                marginVertical: 4,
+                            }}>
+                                <View style={{
+                                    flexDirection: 'row'
+                                }}>
+                                    <Text style={{
+                                        ...fonts.headline5,
+                                        color: colors.primary
+                                    }}>
+                                        {item.nomor}
+                                    </Text>
+                                    <View style={{
+                                        flex: 1,
+                                        paddingLeft: 10,
+                                    }}>
+                                        <Text style={{
+                                            ...fonts.subheadline3,
+                                            color: colors.primary
+                                        }}>
+                                            {item.soal}
+                                        </Text>
+                                        <View>
+                                            <Text style={{
+                                                ...fonts.headline4,
+                                                color: ITEM['a' + item.nomor] == 1 ? colors.success : colors.danger,
+                                            }}>{ITEM['a' + item.nomor] == 1 ? 'Ya' : 'Tidak'}</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+                        }} />
+
+                        {ITEM.hasil == 'SAKIT' &&
+
+                            <>
+                                {/* GANGGUAN */}
+                                <Text style={{
+                                    ...fonts.headline3,
+                                    color: colors.white,
+                                    textAlign: 'center',
+                                    backgroundColor: colors.primary,
+                                    padding: 20,
+                                }}>
+                                    Hasil Screening Lanjutan
+                                </Text>
+                                <FlatList data={data2} showsVerticalScrollIndicator={false} renderItem={({ item, index }) => {
+                                    return <View style={{
+                                        padding: 8,
+                                        marginVertical: 4,
+                                    }}>
+                                        <View style={{
+                                            flexDirection: 'row'
+                                        }}>
+                                            <Text style={{
+                                                ...fonts.headline5,
+                                                color: colors.primary
+                                            }}>
+                                                {item.nomor}
+                                            </Text>
+                                            <View style={{
+                                                flex: 1,
+                                                paddingLeft: 10,
+                                            }}>
+                                                <Text style={{
+                                                    ...fonts.subheadline3,
+                                                    color: colors.primary
+                                                }}>
+                                                    {item.soal}
+                                                </Text>
+                                                <View>
+                                                    <Text style={{
+                                                        ...fonts.headline4,
+                                                        color: ITEM['b' + item.nomor] == 2 ? colors.success : ITEM['b' + item.nomor] == 1 ? colors.black : colors.danger,
+                                                    }}>{ITEM['b' + item.nomor] == 2 ? 'Benar' : ITEM['b' + item.nomor] == 1 ? 'Agak' : 'Tidak'}</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </View>
+                                }} />
+
+                                <View style={{
+                                    borderRightWidth: 1,
+                                    borderRightColor: Color.blueGray[300],
+                                    borderLeftWidth: 1,
+                                    borderLeftColor: Color.blueGray[300],
+                                    marginBottom: 20,
+                                }}>
+
+
+                                    <View style={{
+                                        padding: 10,
+                                        backgroundColor: colors.primary
+                                    }}>
+                                        <Text style={{
+                                            ...fonts.headline3,
+                                            color: colors.white,
+                                            textAlign: 'center'
+                                        }}>SKOR KESULITAN</Text>
+                                    </View>
+                                    <View style={{
+                                        padding: 10,
+                                        backgroundColor: colors.white,
+                                        flexDirection: 'row',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: Color.blueGray[300]
+                                    }}>
+                                        <Text style={{
+                                            flex: 1,
+                                            ...fonts.headline4,
+                                            color: colors.black,
+                                        }}>Gejala Emosional (E)</Text>
+                                        <Text style={{
+                                            ...fonts.headline4,
+                                            color: colors.primary,
+                                        }}>{ITEM.hasile}</Text>
+                                    </View>
+                                    <View style={{
+                                        padding: 10,
+                                        backgroundColor: colors.white,
+                                        flexDirection: 'row',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: Color.blueGray[300]
+                                    }}>
+                                        <Text style={{
+                                            flex: 1,
+                                            ...fonts.headline4,
+                                            color: colors.black,
+                                        }}>Masalah Perilaku (C)</Text>
+                                        <Text style={{
+                                            ...fonts.headline4,
+                                            color: colors.primary,
+                                        }}>{ITEM.hasilc}</Text>
+                                    </View>
+                                    <View style={{
+                                        padding: 10,
+                                        backgroundColor: colors.white,
+                                        flexDirection: 'row',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: Color.blueGray[300]
+                                    }}>
+                                        <Text style={{
+                                            flex: 1,
+                                            ...fonts.headline4,
+                                            color: colors.black,
+                                        }}>Hiperaktivitas (H)</Text>
+                                        <Text style={{
+                                            ...fonts.headline4,
+                                            color: colors.primary,
+                                        }}>{ITEM.hasilh}</Text>
+                                    </View>
+                                    <View style={{
+                                        padding: 10,
+                                        backgroundColor: colors.white,
+                                        flexDirection: 'row',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: Color.blueGray[300]
+                                    }}>
+                                        <Text style={{
+                                            flex: 1,
+                                            ...fonts.headline4,
+                                            color: colors.black,
+                                        }}>Masalah Teman Sebaya (P)</Text>
+                                        <Text style={{
+                                            ...fonts.headline4,
+                                            color: colors.primary,
+                                        }}>{ITEM.hasilp}</Text>
+                                    </View>
+                                    <View style={{
+                                        padding: 10,
+                                        backgroundColor: colors.primary
+                                    }}>
+                                        <Text style={{
+                                            ...fonts.headline3,
+                                            color: colors.white,
+                                            textAlign: 'center'
+                                        }}>SKOR KEKUATAN</Text>
+                                    </View>
+                                    <View style={{
+                                        padding: 10,
+                                        backgroundColor: colors.white,
+                                        flexDirection: 'row',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: Color.blueGray[300]
+                                    }}>
+                                        <Text style={{
+                                            flex: 1,
+                                            ...fonts.headline4,
+                                            color: colors.black,
+                                        }}>Perilaku Prososial (Pr)</Text>
+                                        <Text style={{
+                                            ...fonts.headline4,
+                                            color: colors.primary,
+                                        }}>{ITEM.hasilpr}</Text>
+                                    </View>
+                                </View>
+
+                                {/* GANGGUAN */}
+                            </>
+
+                        }
+
+                        {/* Video */}
+                        <View>
+                            <Text style={{
+                                fontFamily: fonts.primary[600],
+                                fontSize: 20,
+                                textAlign: "center",
+                                marginBottom: 10,
+                                color: colors.primary,
+                            }}>Silakan tonton video di bawah ini :</Text>
+                        </View>
+
+                        <FlatList data={ITEM.hasil == 'NORMAL' ? youtube.filter(i => i.fid_kategori == 1) : youtube.filter(i => i.fid_kategori == 2)} renderItem={({ item, index }) => {
+                            return (
+                                <View style={{
+                                    marginVertical: 8,
+                                }}>
+                                    <YoutubePlayer
+                                        height={windowWidth / 2}
+                                        videoId={item.youtube}
+                                    />
+                                </View>
+                            )
+                        }} />
+                    </ScrollView>
+
+                </View>
+            }
+
+
+            {loading &&
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <ActivityIndicator size="large" color={colors.primary} />
+
+                </View>
+            }
+
+            <View style={{
+                paddingHorizontal: 16,
+                paddingVertical: 10,
+            }}><MyButton warna={colors.danger} onPress={hapus} title="Hapus Screening" />
+
+            </View>
+
+        </SafeAreaView>
+    )
+}
+
+const styles = StyleSheet.create({})

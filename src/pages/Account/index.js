@@ -120,13 +120,18 @@ export default function ({ navigation, route }) {
                     }}>
 
                         <View style={{ padding: 10, }}>
+
                             <MyList label="Nama Sekolah" value={user.nama_sekolah} />
                             <MyList label="Nama Lengkap" value={user.nama_lengkap} />
-                            <MyList label="Tanggal Lahir" value={moment(user.tanggal_lahir).format('dddd, DD MMMM YYYY') + ' ( ' + moment().diff(user.tanggal_lahir, 'year') + ' Tahun )'} />
-                            <MyList label="Jenis Kelamin" value={user.jenis_kelamin} />
                             <MyList label="Username" value={user.username} />
                             <MyList label="Telepon" value={user.telepon} />
-                            <MyList label="Alamat" value={user.alamat} />
+
+
+                            {user.level == 'Siswa' && <>
+                                <MyList label="Tanggal Lahir" value={moment(user.tanggal_lahir).format('dddd, DD MMMM YYYY') + ' ( ' + moment().diff(user.tanggal_lahir, 'year') + ' Tahun )'} />
+                                <MyList label="Jenis Kelamin" value={user.jenis_kelamin} />
+                                <MyList label="Alamat" value={user.alamat} />
+                            </>}
 
 
 
@@ -138,7 +143,10 @@ export default function ({ navigation, route }) {
                 <View style={{
                     padding: 20,
                 }}>
-                    <MyButton warna={colors.primary} title="Edit Profile" Icons="create-outline" iconColor={colors.white} onPress={() => navigation.navigate('AccountEdit', user)} />
+                    {user.level == 'Siswa' &&
+                        <MyButton warna={colors.primary} title="Edit Profile" Icons="create-outline" iconColor={colors.white} onPress={() => navigation.navigate('AccountEdit', user)} />
+
+                    }
                     <MyGap jarak={10} />
                     <MyButton onPress={btnKeluar} warna={colors.black} title="Log Out" Icons="log-out-outline" iconColor={colors.white} colorText={colors.white} />
                 </View>

@@ -14,7 +14,7 @@ export default function MyHeader({ onPress, color = colors.white, title, icon = 
       marginTop: 0,
       marginHorizontal: 0,
       flexDirection: 'row',
-      alignItems: 'flex-end',
+      alignItems: 'center',
       paddingVertical: 20,
       backgroundColor: colors.primary,
       padding: 20,
@@ -36,7 +36,7 @@ export default function MyHeader({ onPress, color = colors.white, title, icon = 
 
 
       <Text style={{
-        ...fonts.headline2,
+        ...fonts.headline3,
         flex: 1,
         textAlign: 'center',
         marginLeft: -20,

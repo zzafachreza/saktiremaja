@@ -1,261 +1,273 @@
-import { View, Text, ScrollView } from 'react-native'
-import React, { useState } from 'react'
-import { colors, fonts } from '../../utils'
-import { MyButton, MyGap, MyHeader, MyRadio } from '../../components'
-import MyRadioSecond from '../../components/MyRadioSecond';
+import { ActivityIndicator, FlatList, Image, Linking, SafeAreaView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { MyDimensi, POSTDataByTable, colors, fonts, getDataByTable, windowHeight, windowWidth } from '../../utils'
+import { Icon } from 'react-native-elements';
+import YoutubePlayer from "react-native-youtube-iframe";
+import axios from 'axios';
+import { apiURL, getData } from '../../utils/localStorage';
+import moment from 'moment';
+import { MyButton, MyHeader, MyRadio } from '../../components';
+import { useToast } from 'react-native-toast-notifications';
+export default function IsiScreeningLanjutan({ navigation, route }) {
+    const ITEM = route.params;
 
-export default function IsiScreeningLanjutan({navigation}) {
-    const [answers, setAnswers] = useState({});
+    const [data, setData] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState({});
+    const getDataTransaksi = () => {
 
-    // Fungsi untuk menangani pilihan
-  // Fungsi untuk menangani pilihan
-  const handleSelection = (questionId, value) => {
-    setAnswers((prevAnswers) => ({
-        ...prevAnswers,
-        [questionId]: value,  // Simpan jawaban berdasarkan id soal
-    }));
-};
+        getData('user').then(u => setUser(u))
+        // setLoading(true);
+        getDataByTable('soal_lanjutan').then(res => {
+            console.log(res.data);
+            setData(res.data)
+        })
+    }
+
+    const toast = useToast();
+
+    const simpan = () => {
+
+
+        const UMUR = moment().diff(user.tanggal_lahir, 'year');
+        console.log('umur', UMUR)
+
+
+        let ARR = [null];
+        data.map(i => i.nilai).map(i => {
+            ARR.push(i == 'Benar' ? 2 : i == 'Agak' ? 1 : 0)
+        });
+
+        console.log(ARR);
+
+        let nilaiE = ARR[3] + ARR[8] + ARR[13] + ARR[16] + ARR[24];
+        let nilaiC = ARR[5] + ARR[7] + ARR[12] + ARR[18] + ARR[22];
+        let nilaiH = ARR[2] + ARR[10] + ARR[15] + ARR[21] + ARR[25];
+        let nilaiP = ARR[6] + ARR[11] + ARR[14] + ARR[19] + ARR[23];
+        let nilaiPR = ARR[1] + ARR[4] + ARR[9] + ARR[17] + ARR[20];
 
 
 
-const hasil = () => {
+        let hasilE = 'test';
+        let hasilC = 'test';
+        let hasilH = 'test';
+        let hasilP = 'test';
+        let hasilPR = 'test';
 
-}
+        // RUMUS E
+        if (UMUR >= 6 && UMUR <= 10) {
 
-  return (
-    <View style={{
-        flex:1,
-        backgroundColor:colors.white
-    }}>
-     <MyHeader title="Isi Screening"/>
-     <ScrollView>
-        <View style={{
-            padding:10
+            if (nilaiE >= 0 && nilaiE <= 13) {
+                hasilE = 'Normal';
+            } else if (nilaiE >= 14 && nilaiE <= 16) {
+                hasilE = 'Borderline';
+            } else if (nilaiE >= 17 && nilaiE <= 40) {
+                hasilE = 'Abnormal';
+            }
+
+            if (nilaiC >= 0 && nilaiC <= 13) {
+                hasilC = 'Normal';
+            } else if (nilaiC >= 14 && nilaiC <= 16) {
+                hasilC = 'Borderline';
+            } else if (nilaiC >= 17 && nilaiC <= 40) {
+                hasilC = 'Abnormal';
+            }
+
+            if (nilaiH >= 0 && nilaiH <= 13) {
+                hasilH = 'Normal';
+            } else if (nilaiH >= 14 && nilaiH <= 16) {
+                hasilH = 'Borderline';
+            } else if (nilaiH >= 17 && nilaiH <= 40) {
+                hasilH = 'Abnormal';
+            }
+
+            if (nilaiP >= 0 && nilaiP <= 13) {
+                hasilP = 'Normal';
+            } else if (nilaiP >= 14 && nilaiP <= 16) {
+                hasilP = 'Borderline';
+            } else if (nilaiP >= 17 && nilaiP <= 40) {
+                hasilP = 'Abnormal';
+            }
+
+
+            if (nilaiPR >= 0 && nilaiPR <= 13) {
+                hasilPR = 'Normal';
+            } else if (nilaiPR >= 14 && nilaiPR <= 16) {
+                hasilPR = 'Borderline';
+            } else if (nilaiPR >= 17 && nilaiPR <= 40) {
+                hasilPR = 'Abnormal';
+            }
+
+        } else if (UMUR >= 11) {
+
+            if (nilaiE >= 0 && nilaiE <= 15) {
+                hasilE = 'Normal';
+            } else if (nilaiE >= 16 && nilaiE <= 19) {
+                hasilE = 'Borderline';
+            } else if (nilaiE >= 20 && nilaiE <= 40) {
+                hasilE = 'Abnormal';
+            }
+
+            if (nilaiC >= 0 && nilaiC <= 15) {
+                hasilC = 'Normal';
+            } else if (nilaiC >= 16 && nilaiC <= 19) {
+                hasilC = 'Borderline';
+            } else if (nilaiC >= 20 && nilaiC <= 40) {
+                hasilC = 'Abnormal';
+            }
+
+            if (nilaiH >= 0 && nilaiH <= 15) {
+                hasilH = 'Normal';
+            } else if (nilaiH >= 16 && nilaiH <= 19) {
+                hasilH = 'Borderline';
+            } else if (nilaiH >= 20 && nilaiH <= 40) {
+                hasilH = 'Abnormal';
+            }
+
+            if (nilaiP >= 0 && nilaiP <= 15) {
+                hasilP = 'Normal';
+            } else if (nilaiP >= 16 && nilaiP <= 19) {
+                hasilP = 'Borderline';
+            } else if (nilaiP >= 20 && nilaiP <= 40) {
+                hasilP = 'Abnormal';
+            }
+
+
+            if (nilaiPR >= 0 && nilaiPR <= 15) {
+                hasilPR = 'Normal';
+            } else if (nilaiPR >= 16 && nilaiPR <= 19) {
+                hasilPR = 'Borderline';
+            } else if (nilaiPR >= 20 && nilaiPR <= 40) {
+                hasilPR = 'Abnormal';
+            }
+
+        }
+
+
+
+        POSTDataByTable('insert_hasil', {
+            ...ITEM,
+            hasile_nilai: nilaiE,
+            hasilc_nilai: nilaiC,
+            hasilh_nilai: nilaiH,
+            hasilp_nilai: nilaiP,
+            hasilpr_nilai: nilaiPR,
+            hasile: hasilE,
+            hasilc: hasilC,
+            hasilh: hasilH,
+            hasilp: hasilP,
+            hasilpr: hasilPR,
+
+            soal2: data.map(i => i.nilai),
+
+        }).then(res => {
+            console.log(res.data);
+            if (res.data.status == 200) {
+                toast.show(res.data.message, {
+                    type: 'success'
+                });
+                navigation.navigate('HasilScreening2', {
+                    ...ITEM,
+                    soal2: data.map(i => i.nilai)
+                })
+            }
+        })
+
+
+
+
+
+    }
+
+    useEffect(() => {
+        getDataTransaksi();
+    }, []);
+
+    const __renderItem = ({ item, index }) => {
+        return (
+            <View style={{
+                padding: 8,
+                marginVertical: 4,
+            }}>
+                <View style={{
+                    flexDirection: 'row'
+                }}>
+                    <Text style={{
+                        ...fonts.headline5,
+                        color: colors.primary
+                    }}>
+                        {item.nomor}
+                    </Text>
+                    <View style={{
+                        flex: 1,
+                        paddingLeft: 10,
+                    }}>
+                        <Text style={{
+                            ...fonts.subheadline3,
+                            color: colors.primary
+                        }}>
+                            {item.soal}
+                        </Text>
+                        <View>
+                            <MyRadio horizontal value={item.nilai} onPress={(x) => {
+                                let tmp = [...data];
+                                tmp[index].nilai = x;
+                                setData(tmp)
+                            }} nolabel options={['Tidak', 'Agak', 'Benar']} />
+                        </View>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+
+
+    return (
+        <SafeAreaView style={{
+            flex: 1,
+            backgroundColor: colors.white
         }}>
 
-    <View style={{
-        marginBottom:20
-    }}>
-        <Text style={{
-            fontFamily:fonts.primary[800],
-            fontSize:20,
-            textAlign:"center",
-            color:colors.primary,
+            <MyHeader title="Isi Screening" onPress={() => navigation.goBack()} />
+            {!loading &&
+                <View style={{
+                    flex: 1,
+                }}>
+                    <Text style={{
+                        marginVertical: 10,
+                        textAlign: 'center',
+                        ...fonts.headline2,
+                        color: colors.primary,
+                    }}>
+                        Screening Lanjutan
+                    </Text>
+                    <FlatList data={data} showsVerticalScrollIndicator={false} renderItem={__renderItem} />
 
-        }}>Screening Lanjutan</Text>
-    </View>
-
-<MyRadioSecond
-    mainLabel="1. Saya berusaha bersikap baik kepada orang lain. Saya peduli dengan perasaan mereka."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[1]}
-    onPress={(value) => handleSelection(1, value)}
-/>
-
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="2. Saya gelisah, saya tidak dapat diam untuk waktu lama."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[2]}
-    onPress={(value) => handleSelection(2, value)}
-/>
-
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="3. Saya sering sakit kepala, sakit perut atau macam2 sakit lain."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[3]}
-    onPress={(value) => handleSelection(3, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="4. Kalau saya memiliki mainan CD atau makanan saya biasanya berbagi dengan orang lain."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[4]}
-    onPress={(value) => handleSelection(4, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="5. Saya menjadi sangat marah dan sering tidak bisa mengendalikan kemarahan saya."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[5]}
-    onPress={(value) => handleSelection(5, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="6. Saya lebih suka sendirian daripada bersama dengan orang-orang yang seumur saya."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[6]}
-    onPress={(value) => handleSelection(6, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="7. Saya biasanya melakukan apa yang diperintahkan oleh orang lain."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[7]}
-    onPress={(value) => handleSelection(7, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="8. Saya banyak merasa cemas atau khawatir terhadap apapun."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[8]}
-    onPress={(value) => handleSelection(8, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="9. Saya selalu siap menolong jika ada orang terluka, kecewa atau merasa sakit."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[9]}
-    onPress={(value) => handleSelection(9, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="10. Bila sedang gelisah atau cemas badan saya sering bergerak-gerak tanpa saya sadari."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[10]}
-    onPress={(value) => handleSelection(10, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="11. Saya mempunyai satu teman baik atau lebih"
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[11]}
-    onPress={(value) => handleSelection(11, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="12. Saya sering bertengkar dengan orang lain. Saya dapat memaksa orang lain melakukannya apa yang saya inginkan."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[12]}
-    onPress={(value) => handleSelection(12, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="13. Saya sering merasa tidak bahagia, sedih atau menangis."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[13]}
-    onPress={(value) => handleSelection(13, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="14. Orang lain seumur saya pada umumnya menyukai saya."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[14]}
-    onPress={(value) => handleSelection(14, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="15. Perhatian saya mudah teralihkan. Saya sulit memusatkan perhatian pada apapun."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[15]}
-    onPress={(value) => handleSelection(15, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="16. Saya merasa gugup dalam situasi baru. Saya mudah kehilangan rasa percaya diri."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[16]}
-    onPress={(value) => handleSelection(16, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="17. Saya bersikap baik pada anak-anak yang lebih muda dari saya"
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[17]}
-    onPress={(value) => handleSelection(17, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="18. Saya sering dituduh berbohong atau berbuat curang."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[18]}
-    onPress={(value) => handleSelection(18, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="19. Saya sering diganggu atau dipermainkan oleh anak-anak atau remaja lainnya"
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[19]}
-    onPress={(value) => handleSelection(19, value)}
-/>
-<MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="20. Saya  sering menawarkan diri untuk membantu orang lain, orang tua, guru atau anak-anak."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[20]}
-    onPress={(value) => handleSelection(20, value)}
-/><MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="21. Sebelum melakukan sesuatu saya berpikir dahulu tentang akibatnya."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[21]}
-    onPress={(value) => handleSelection(21, value)}
-/><MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="22. Saya mengambil barang yang bukan milik saya dari  rumah, sekolah, atau darimana saja."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[22]}
-    onPress={(value) => handleSelection(22, value)}
-/><MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="23. Saya lebih mudah berteman dengan orang dewasa daripada dengan orang-orang seumur saya."
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[23]}
-    onPress={(value) => handleSelection(23, value)}
-/><MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="24. Banyak yang saya takuti. Saya mudah menjadi takut"
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[24]}
-    onPress={(value) => handleSelection(24, value)}
-/><MyGap jarak={10}/>
-
-<MyRadioSecond
-    mainLabel="25. Saya menyelesaikan pekerjaan yang sedang saya lakukan. Saya mempunyai perhatian yang baik terhadap apapun"
-    options={['Tidak', 'Agak', 'Benar']}
-    selectedOption={answers[25]}
-    onPress={(value) => handleSelection(25, value)}
-/><MyGap jarak={10}/>
+                </View>
+            }
 
 
+            {loading &&
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <ActivityIndicator size="large" color={colors.primary} />
 
-<View style={{
-    padding:10,
-    marginBottom:20
-}}>
+                </View>
+            }
 
-{/* nanti buatkan handle selesai dan memproses hasil dari isi screening sebelumnya */}
-{/* nanti navigate ke halaman HasilScreening */}
-    <MyButton  title="Selesai"/>
-</View>
+            <View style={{
+                paddingHorizontal: 16,
+                paddingVertical: 10,
+            }}><MyButton onPress={simpan} title="Simpan" />
 
+            </View>
 
-        </View>
-     </ScrollView>
-    </View>
-  )
+        </SafeAreaView>
+    )
 }
+
+const styles = StyleSheet.create({})

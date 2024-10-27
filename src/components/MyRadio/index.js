@@ -2,14 +2,41 @@ import React from 'react';
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { colors, fonts, MyDimensi } from '../../utils';
 
-export default function MyRadio({ label, options = [], value, onPress }) {
+export default function MyRadio({ horizontal = false, nolabel = false, label, options = [], value, onPress }) {
     return (
         <View style={styles.container}>
             {/* Label Utama di atas */}
-            <Text style={styles.mainLabel}>{label}</Text>
+            {!nolabel && <Text style={styles.mainLabel}>{label}</Text>}
 
             {/* Opsi Radio Buttons */}
-            {options.map((option, index) => (
+            {horizontal &&
+
+                <View style={{
+                    flexDirection: 'row'
+                }}>
+                    {options.map((option, index) => (
+                        <TouchableWithoutFeedback key={index} onPress={() => onPress(option)}>
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',  // Agar label berada di kanan radio button
+                                alignItems: 'center',
+                                marginBottom: 10,
+                            }}>
+                                <View style={styles.radioButton}>
+                                    {value === option && <View style={styles.radioButtonSelected} />}
+                                </View>
+                                <Text style={styles.radioLabel}>{option}</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    ))}
+                </View>
+
+            }
+
+
+
+
+            {!horizontal && options.map((option, index) => (
                 <TouchableWithoutFeedback key={index} onPress={() => onPress(option)}>
                     <View style={styles.radioContainer}>
                         <View style={styles.radioButton}>
@@ -19,6 +46,9 @@ export default function MyRadio({ label, options = [], value, onPress }) {
                     </View>
                 </TouchableWithoutFeedback>
             ))}
+
+
+
         </View>
     );
 }
@@ -58,8 +88,7 @@ const styles = StyleSheet.create({
     },
     radioLabel: {
         marginLeft: 15,  // Jarak antara radio button dan labelnya
-        fontSize: 15,
-        fontFamily: fonts.primary[600],
+        ...fonts.headline5,
         color: colors.primary,
     },
 });
