@@ -11,7 +11,10 @@ export default function MyInput({
   nolabel = false,
   borderColor = Color.blueGray[300],
   backgroundColor = colors.white,
+  returnKeyType,
+  returnKeyLabel,
   editable,
+  onEndEditing,
   icon = true,
   maxLength,
   iconname,
@@ -35,16 +38,16 @@ export default function MyInput({
   return (
     <View style={{}}>
       <Text style={{
-        fontFamily:fonts.primary[700],
+        fontFamily: fonts.primary[700],
         color: colors.white,
         marginBottom: 8,
-        fontSize:17,
+        fontSize: 17,
       }}>{label}</Text>
       <View style={{
         height: 45,
         flexDirection: 'row', // Gunakan row agar TextInput dan label bisa sejajar
         alignItems: 'center', // Align center agar teks sejajar vertikal
-      
+
         borderRadius: 10,
         backgroundColor: 'white',
       }}>
@@ -56,6 +59,9 @@ export default function MyInput({
           </View>
         )}
         <TextInput
+          returnKeyType={returnKeyType}
+          returnKeyLabel={returnKeyLabel}
+          onEndEditing={onEndEditing}
           maxLength={maxLength}
           keyboardType={keyboardType}
           onChangeText={onChangeText}
@@ -69,7 +75,7 @@ export default function MyInput({
           secureTextEntry={secureTextEntry ? tutup : false}
           autoCapitalize="none"
           style={{
-            fontFamily:fonts.primary[500],
+            fontFamily: fonts.primary[500],
             flex: 1, // Flex untuk mengisi ruang yang ada
             paddingLeft: icon ? 10 : 40,
             paddingRight: rightLabel ? 10 : 0, // Spasi tambahan jika ada rightLabel

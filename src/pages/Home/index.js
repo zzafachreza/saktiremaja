@@ -81,6 +81,22 @@ export default function Home({ navigation, route }) {
     })
   }
 
+  const filterData = (key) => {
+    getData('user').then(u => {
+      setUser(u)
+      if (u.level == 'Petugas UKS') {
+        POSTDataByTable('hasil_uks', {
+          fid_sekolah: u.fid_sekolah,
+          key: key
+        }).then(res => {
+          console.log(res.data);
+          setData(res.data)
+        })
+      }
+    })
+
+  }
+
   const isFocus = useIsFocused();
   useEffect(() => {
     if (isFocus) {
@@ -254,7 +270,7 @@ export default function Home({ navigation, route }) {
             marginBottom: 10,
             marginHorizontal: 8,
           }}>
-            <MyInput placeholder="Cari data siswa . . ." iconname="search" />
+            <MyInput onEndEditing={x => filterData(x.nativeEvent.text)} returnKeyType='search' placeholder="Cari data siswa . . ." iconname="search" />
           </View>
           <FlatList data={data} renderItem={({ item, index }) => {
             return (
