@@ -45,6 +45,7 @@ export default function IsiScreeningLanjutan({ navigation, route }) {
         let nilaiH = ARR[2] + ARR[10] + ARR[15] + ARR[21] + ARR[25];
         let nilaiP = ARR[6] + ARR[11] + ARR[14] + ARR[19] + ARR[23];
         let nilaiPR = ARR[1] + ARR[4] + ARR[9] + ARR[17] + ARR[20];
+        let nilaiTotal = (nilaiE + nilaiC + nilaiH + nilaiP);
 
 
 
@@ -53,97 +54,134 @@ export default function IsiScreeningLanjutan({ navigation, route }) {
         let hasilH = 'test';
         let hasilP = 'test';
         let hasilPR = 'test';
+        let hasilTotal = 'test';
 
         // RUMUS E
         if (UMUR >= 6 && UMUR <= 10) {
 
-            if (nilaiE >= 0 && nilaiE <= 13) {
+            // TOTAL
+
+            if (nilaiTotal >= 0 && nilaiTotal <= 13) {
+                hasilTotal = 'Normal';
+            } else if (nilaiTotal >= 14 && nilaiTotal <= 15) {
+                hasilTotal = 'Borderline';
+            } else if (nilaiTotal >= 16 && nilaiTotal <= 40) {
+                hasilTotal = 'Abnormal';
+            }
+
+            if (nilaiE >= 0 && nilaiE <= 3) {
                 hasilE = 'Normal';
-            } else if (nilaiE >= 14 && nilaiE <= 16) {
+            } else if (nilaiE == 4) {
                 hasilE = 'Borderline';
-            } else if (nilaiE >= 17 && nilaiE <= 40) {
+            } else if (nilaiE >= 5 && nilaiE <= 10) {
                 hasilE = 'Abnormal';
             }
 
-            if (nilaiC >= 0 && nilaiC <= 13) {
+            if (nilaiC >= 0 && nilaiC <= 2) {
                 hasilC = 'Normal';
-            } else if (nilaiC >= 14 && nilaiC <= 16) {
+            } else if (nilaiC == 3) {
                 hasilC = 'Borderline';
-            } else if (nilaiC >= 17 && nilaiC <= 40) {
+            } else if (nilaiC >= 4 && nilaiC <= 10) {
                 hasilC = 'Abnormal';
             }
 
-            if (nilaiH >= 0 && nilaiH <= 13) {
+            if (nilaiH >= 0 && nilaiH <= 5) {
                 hasilH = 'Normal';
-            } else if (nilaiH >= 14 && nilaiH <= 16) {
+            } else if (nilaiH == 6) {
                 hasilH = 'Borderline';
-            } else if (nilaiH >= 17 && nilaiH <= 40) {
+            } else if (nilaiH >= 7 && nilaiH <= 10) {
                 hasilH = 'Abnormal';
             }
 
-            if (nilaiP >= 0 && nilaiP <= 13) {
+            if (nilaiP >= 0 && nilaiP <= 2) {
                 hasilP = 'Normal';
-            } else if (nilaiP >= 14 && nilaiP <= 16) {
+            } else if (nilaiP == 3) {
                 hasilP = 'Borderline';
-            } else if (nilaiP >= 17 && nilaiP <= 40) {
+            } else if (nilaiP >= 4 && nilaiP <= 10) {
                 hasilP = 'Abnormal';
             }
 
 
-            if (nilaiPR >= 0 && nilaiPR <= 13) {
+            if (nilaiPR >= 6 && nilaiPR <= 10) {
                 hasilPR = 'Normal';
-            } else if (nilaiPR >= 14 && nilaiPR <= 16) {
+            } else if (nilaiPR == 5) {
                 hasilPR = 'Borderline';
-            } else if (nilaiPR >= 17 && nilaiPR <= 40) {
+            } else if (nilaiPR >= 0 && nilaiPR <= 4) {
                 hasilPR = 'Abnormal';
             }
 
         } else if (UMUR >= 11) {
 
-            if (nilaiE >= 0 && nilaiE <= 15) {
+            if (nilaiTotal >= 0 && nilaiTotal <= 15) {
+                hasilTotal = 'Normal';
+            } else if (nilaiTotal >= 16 && nilaiTotal <= 19) {
+                hasilTotal = 'Borderline';
+            } else if (nilaiTotal >= 20 && nilaiTotal <= 40) {
+                hasilTotal = 'Abnormal';
+            }
+
+
+            if (nilaiE >= 0 && nilaiE <= 5) {
                 hasilE = 'Normal';
-            } else if (nilaiE >= 16 && nilaiE <= 19) {
+            } else if (nilaiE == 6) {
                 hasilE = 'Borderline';
-            } else if (nilaiE >= 20 && nilaiE <= 40) {
+            } else if (nilaiE >= 7 && nilaiE <= 10) {
                 hasilE = 'Abnormal';
             }
 
-            if (nilaiC >= 0 && nilaiC <= 15) {
+            if (nilaiC >= 0 && nilaiC <= 3) {
                 hasilC = 'Normal';
-            } else if (nilaiC >= 16 && nilaiC <= 19) {
+            } else if (nilaiC == 4) {
                 hasilC = 'Borderline';
-            } else if (nilaiC >= 20 && nilaiC <= 40) {
+            } else if (nilaiC >= 5 && nilaiC <= 10) {
                 hasilC = 'Abnormal';
             }
 
-            if (nilaiH >= 0 && nilaiH <= 15) {
+            if (nilaiH >= 0 && nilaiH <= 5) {
                 hasilH = 'Normal';
-            } else if (nilaiH >= 16 && nilaiH <= 19) {
+            } else if (nilaiH == 6) {
                 hasilH = 'Borderline';
-            } else if (nilaiH >= 20 && nilaiH <= 40) {
+            } else if (nilaiH >= 7 && nilaiH <= 10) {
                 hasilH = 'Abnormal';
             }
 
-            if (nilaiP >= 0 && nilaiP <= 15) {
+            if (nilaiP >= 0 && nilaiP <= 3) {
                 hasilP = 'Normal';
-            } else if (nilaiP >= 16 && nilaiP <= 19) {
+            } else if (nilaiP >= 4 && nilaiP <= 5) {
                 hasilP = 'Borderline';
-            } else if (nilaiP >= 20 && nilaiP <= 40) {
+            } else if (nilaiP >= 6 && nilaiP <= 10) {
                 hasilP = 'Abnormal';
             }
 
 
-            if (nilaiPR >= 0 && nilaiPR <= 15) {
+            if (nilaiPR >= 6 && nilaiPR <= 10) {
                 hasilPR = 'Normal';
-            } else if (nilaiPR >= 16 && nilaiPR <= 19) {
+            } else if (nilaiPR == 5) {
                 hasilPR = 'Borderline';
-            } else if (nilaiPR >= 20 && nilaiPR <= 40) {
+            } else if (nilaiPR >= 0 && nilaiPR <= 4) {
                 hasilPR = 'Abnormal';
             }
-
         }
 
 
+        console.log({
+            ...ITEM,
+            hasile_nilai: nilaiE,
+            hasilc_nilai: nilaiC,
+            hasilh_nilai: nilaiH,
+            hasilp_nilai: nilaiP,
+            hasilpr_nilai: nilaiPR,
+            hasiltotal_nilai: nilaiTotal,
+            hasile: hasilE,
+            hasilc: hasilC,
+            hasilh: hasilH,
+            hasilp: hasilP,
+            hasilpr: hasilPR,
+            hasiltotal: hasilTotal,
+
+            soal2: data.map(i => i.nilai),
+
+        })
 
         POSTDataByTable('insert_hasil', {
             ...ITEM,
@@ -152,11 +190,13 @@ export default function IsiScreeningLanjutan({ navigation, route }) {
             hasilh_nilai: nilaiH,
             hasilp_nilai: nilaiP,
             hasilpr_nilai: nilaiPR,
+            hasiltotal_nilai: nilaiTotal,
             hasile: hasilE,
             hasilc: hasilC,
             hasilh: hasilH,
             hasilp: hasilP,
             hasilpr: hasilPR,
+            hasiltotal: hasilTotal,
 
             soal2: data.map(i => i.nilai),
 

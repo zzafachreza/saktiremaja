@@ -74,7 +74,49 @@ export default function AccountEdit({ navigation, route }) {
                 <ScrollView showsVerticalScrollIndicator={false} style={{
                     paddingHorizontal: 20,
                 }}>
+                    <View style={{
+                        padding: 10,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <TouchableOpacity onPress={() => {
 
+
+                            launchImageLibrary({
+                                includeBase64: true,
+                                quality: 1,
+                                mediaType: "photo",
+                                maxWidth: 200,
+                                maxHeight: 200
+                            }, response => {
+                                console.log('All Response = ', response.assets[0]);
+
+                                setKirim({
+                                    ...kirim,
+                                    newfoto_user: `data:${response.assets[0].type};base64, ${response.assets[0].base64}`,
+                                });
+                            });
+
+
+
+                        }} style={{
+                            width: 100,
+                            height: 100,
+                            borderWidth: 1,
+                            borderColor: Color.blueGray[100],
+                            overflow: 'hidden',
+                            borderRadius: 20,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Image style={{
+                                width: 100,
+                                height: 100,
+                            }} source={{
+                                uri: kirim.newfoto_user !== null ? kirim.newfoto_user : kirim.file_pengguna,
+                            }} />
+                        </TouchableOpacity>
+                    </View>
 
                     <MyInput label="Username" iconname="at-outline" value={kirim.username} onChangeText={x => setKirim({ ...kirim, username: x })} />
                     <MyGap jarak={10} />

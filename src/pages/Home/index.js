@@ -293,49 +293,52 @@ export default function Home({ navigation, route }) {
                   overflow: 'hidden'
                 }}>
                   <View style={{
-                    flexDirection: 'row'
+                    flexDirection: 'row',
+                    alignItems: 'center'
                   }}>
                     <Text style={{
-                      flex: 0.5,
-                      ...fonts.body3,
+                      flex: 0.6,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>Nama Lengkap</Text>
                     <Text style={{
                       flex: 0.05,
-                      ...fonts.body3,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>:</Text>
                     <Text style={{
                       flex: 1,
-                      ...fonts.body3,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>{item.nama_lengkap}</Text>
                   </View>
                   <View style={{
-                    flexDirection: 'row'
+                    flexDirection: 'row',
+                    alignItems: 'center'
                   }}>
                     <Text style={{
-                      flex: 0.5,
-                      ...fonts.body3,
+                      flex: 0.6,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>Umur</Text>
                     <Text style={{
                       flex: 0.05,
-                      ...fonts.body3,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>:</Text>
                     <Text style={{
                       flex: 1,
-                      ...fonts.body3,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>{moment().diff(item.tanggal_lahir, 'year')} Tahun</Text>
                   </View>
                   <View style={{
-                    flexDirection: 'row'
+                    flexDirection: 'row',
+                    alignItems: 'center'
                   }}>
                     <Text style={{
-                      flex: 0.5,
-                      ...fonts.body3,
+                      flex: 0.6,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>Jenis Kelamin</Text>
                     <Text style={{
@@ -345,26 +348,27 @@ export default function Home({ navigation, route }) {
                     }}>:</Text>
                     <Text style={{
                       flex: 1,
-                      ...fonts.body3,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>{item.jenis_kelamin}</Text>
                   </View>
                   <View style={{
-                    flexDirection: 'row'
+                    flexDirection: 'row',
+                    alignItems: 'center'
                   }}>
                     <Text style={{
-                      flex: 0.5,
-                      ...fonts.body3,
+                      flex: 0.6,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>Nomor Telepon</Text>
                     <Text style={{
                       flex: 0.05,
-                      ...fonts.body3,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>:</Text>
                     <Text style={{
                       flex: 1,
-                      ...fonts.body3,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>{item.telepon}</Text>
                   </View>
@@ -372,21 +376,22 @@ export default function Home({ navigation, route }) {
                     paddingBottom: 5,
                     borderBottomWidth: 1,
                     borderBottomColor: Color.blueGray[300],
-                    flexDirection: 'row'
+                    flexDirection: 'row',
+                    alignItems: 'center'
                   }}>
                     <Text style={{
-                      flex: 0.5,
-                      ...fonts.body3,
+                      flex: 0.6,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>Alamat</Text>
                     <Text style={{
                       flex: 0.05,
-                      ...fonts.body3,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>:</Text>
                     <Text style={{
                       flex: 1,
-                      ...fonts.body3,
+                      ...fonts.caption,
                       color: colors.primary
                     }}>{item.alamat}</Text>
                   </View>
@@ -396,13 +401,13 @@ export default function Home({ navigation, route }) {
                   }}>
                     <Text style={{
                       flex: 1,
-                      ...fonts.body3,
-                      color: item.hasil == 'NORMAL' ? colors.success : colors.danger
+                      ...fonts.caption,
+                      color: item.hasile == 'Normal' && item.hasilc == 'Normal' && item.hasilh == 'Normal' && item.hasilp == 'Normal' && item.hasilpr == 'Normal' && item.hasil == 'SAKIT' ? colors.success : item.hasil == 'NORMAL' ? colors.success : colors.danger
                     }}>
-                      {item.hasil == 'NORMAL' ? 'Selamat kamu tidak mengalami masalah psikologis dan emosional, yuk pelajari cara agar kamu tetap sehat dan jauh dari masalah psikososial.' : 'Kamu mengalami gejala gangguan mental emosional segera menghubungi petugas untuk mendapatkan bantuan'}
+                      {item.hasile == 'Normal' && item.hasilc == 'Normal' && item.hasilh == 'Normal' && item.hasilp == 'Normal' && item.hasilpr == 'Normal' && item.hasil == 'SAKIT' ? 'Selamat kamu tidak mengalami gangguan mental emosional yang bermakna, yuk ikuti past intervensi ini agar kamu semakin sehat' : item.hasil == 'NORMAL' ? 'Selamat kamu tidak mengalami masalah psikologis dan emosional, yuk pelajari cara agar kamu tetap sehat dan jauh dari masalah psikososial.' : 'Kamu mengalami gejala gangguan mental emosional segera menghubungi petugas untuk mendapatkan bantuan'}
                     </Text>
                     <Image
-                      source={item.hasil == 'NORMAL' ? require('../../assets/done_icon.png') : require('../../assets/warning_red.png')}
+                      source={item.hasile == 'Normal' && item.hasilc == 'Normal' && item.hasilh == 'Normal' && item.hasilp == 'Normal' && item.hasilpr == 'Normal' && item.hasil == 'SAKIT' ? require('../../assets/done_icon.png') : item.hasil == 'NORMAL' ? require('../../assets/done_icon.png') : require('../../assets/warning_red.png')}
                       style={{
                         width: windowWidth / 8,
                         height: windowWidth / 8,
@@ -417,7 +422,7 @@ export default function Home({ navigation, route }) {
                   }}>
                     <Text style={{
                       flex: 1,
-                      ...fonts.body3,
+                      ...fonts.caption,
                       color: colors.primary,
                     }}>
                       {moment(item.tanggal).format('DD MMMM YYYY')}

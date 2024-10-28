@@ -74,109 +74,6 @@ export default function ScreeningDetail2({ navigation, route }) {
                     flex: 1,
                 }}>
                     <ScrollView>
-
-                        <View style={{
-                            padding: 16
-                        }}>
-                            <View style={{
-                                flexDirection: 'row'
-                            }}>
-                                <Text style={{
-                                    flex: 0.5,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>Nama Lengkap</Text>
-                                <Text style={{
-                                    flex: 0.05,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>:</Text>
-                                <Text style={{
-                                    flex: 1,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>{ITEM.nama_lengkap}</Text>
-                            </View>
-                            <View style={{
-                                flexDirection: 'row'
-                            }}>
-                                <Text style={{
-                                    flex: 0.5,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>Umur</Text>
-                                <Text style={{
-                                    flex: 0.05,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>:</Text>
-                                <Text style={{
-                                    flex: 1,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>{moment().diff(ITEM.tanggal_lahir, 'year')} Tahun</Text>
-                            </View>
-                            <View style={{
-                                flexDirection: 'row'
-                            }}>
-                                <Text style={{
-                                    flex: 0.5,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>Jenis Kelamin</Text>
-                                <Text style={{
-                                    flex: 0.05,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>:</Text>
-                                <Text style={{
-                                    flex: 1,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>{ITEM.jenis_kelamin}</Text>
-                            </View>
-                            <View style={{
-                                flexDirection: 'row'
-                            }}>
-                                <Text style={{
-                                    flex: 0.5,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>Nomor Telepon</Text>
-                                <Text style={{
-                                    flex: 0.05,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>:</Text>
-                                <Text style={{
-                                    flex: 1,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>{ITEM.telepon}</Text>
-                            </View>
-                            <View style={{
-                                paddingBottom: 5,
-                                borderBottomWidth: 1,
-                                borderBottomColor: Color.blueGray[300],
-                                flexDirection: 'row'
-                            }}>
-                                <Text style={{
-                                    flex: 0.5,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>Alamat</Text>
-                                <Text style={{
-                                    flex: 0.05,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>:</Text>
-                                <Text style={{
-                                    flex: 1,
-                                    ...fonts.body3,
-                                    color: colors.primary
-                                }}>{ITEM.alamat}</Text>
-                            </View>
-                        </View>
                         <View style={{
                             flex: 1,
                             padding: 10,
@@ -187,22 +84,128 @@ export default function ScreeningDetail2({ navigation, route }) {
                             marginVertical: 10,
                             overflow: 'hidden'
                         }}>
+
+                            <View style={{
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                                <Text style={{
+                                    flex: 0.6,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>Nama Lengkap</Text>
+                                <Text style={{
+                                    flex: 0.05,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>{ITEM.nama_lengkap}</Text>
+                            </View>
+                            <View style={{
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                                <Text style={{
+                                    flex: 0.6,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>Umur</Text>
+                                <Text style={{
+                                    flex: 0.05,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>{moment().diff(ITEM.tanggal_lahir, 'year')} Tahun</Text>
+                            </View>
+                            <View style={{
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                                <Text style={{
+                                    flex: 0.6,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>Jenis Kelamin</Text>
+                                <Text style={{
+                                    flex: 0.05,
+                                    ...fonts.body3,
+                                    color: colors.primary
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>{ITEM.jenis_kelamin}</Text>
+                            </View>
+                            <View style={{
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                                <Text style={{
+                                    flex: 0.6,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>Nomor Telepon</Text>
+                                <Text style={{
+                                    flex: 0.05,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>{ITEM.telepon}</Text>
+                            </View>
+                            <View style={{
+                                paddingBottom: 5,
+                                borderBottomWidth: 1,
+                                borderBottomColor: Color.blueGray[300],
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                                <Text style={{
+                                    flex: 0.6,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>Alamat</Text>
+                                <Text style={{
+                                    flex: 0.05,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    ...fonts.caption,
+                                    color: colors.primary
+                                }}>{ITEM.alamat}</Text>
+                            </View>
+
+
                             <View style={{
                                 flexDirection: 'row',
                                 alignItems: 'center'
                             }}>
                                 <Text style={{
                                     flex: 1,
-                                    ...fonts.body3,
-                                    color: ITEM.hasil == 'NORMAL' ? colors.success : colors.danger
+                                    ...fonts.subheadline3,
+                                    color: ITEM.hasile == 'Normal' && ITEM.hasilc == 'Normal' && ITEM.hasilh == 'Normal' && ITEM.hasilp == 'Normal' && ITEM.hasilpr == 'Normal' && ITEM.hasil == 'SAKIT' ? colors.success : ITEM.hasil == 'NORMAL' ? colors.success : colors.danger
                                 }}>
-                                    {ITEM.hasil == 'NORMAL' ? 'Selamat kamu tidak mengalami masalah psikologis dan emosional, yuk pelajari cara agar kamu tetap sehat dan jauh dari masalah psikososial.' : 'Kamu mengalami gejala gangguan mental emosional segera menghubungi petugas untuk mendapatkan bantuan'}
+                                    {ITEM.hasile == 'Normal' && ITEM.hasilc == 'Normal' && ITEM.hasilh == 'Normal' && ITEM.hasilp == 'Normal' && ITEM.hasilpr == 'Normal' && ITEM.hasil == 'SAKIT' ? 'Selamat kamu tidak mengalami gangguan mental emosional yang bermakna, yuk ikuti past intervensi ini agar kamu semakin sehat' : ITEM.hasil == 'NORMAL' ? 'Selamat kamu tidak mengalami masalah psikologis dan emosional, yuk pelajari cara agar kamu tetap sehat dan jauh dari masalah psikososial.' : 'Kamu mengalami gejala gangguan mental emosional segera menghubungi petugas untuk mendapatkan bantuan'}
                                 </Text>
                                 <Image
-                                    source={ITEM.hasil == 'NORMAL' ? require('../../assets/done_icon.png') : require('../../assets/warning_red.png')}
+                                    source={ITEM.hasile == 'Normal' && ITEM.hasilc == 'Normal' && ITEM.hasilh == 'Normal' && ITEM.hasilp == 'Normal' && ITEM.hasilpr == 'Normal' && ITEM.hasil == 'SAKIT' ? require('../../assets/done_icon.png') : ITEM.hasil == 'NORMAL' ? require('../../assets/done_icon.png') : require('../../assets/warning_red.png')}
                                     style={{
-                                        width: windowWidth / 8,
-                                        height: windowWidth / 8,
+                                        width: windowWidth / 4,
+                                        height: windowWidth / 4,
                                     }}
                                 />
                             </View>
@@ -335,11 +338,11 @@ export default function ScreeningDetail2({ navigation, route }) {
                                     }}>
                                         <Text style={{
                                             flex: 1,
-                                            ...fonts.headline4,
+                                            ...fonts.headline5,
                                             color: colors.black,
                                         }}>Gejala Emosional (E)</Text>
                                         <Text style={{
-                                            ...fonts.headline4,
+                                            ...fonts.headline5,
                                             color: colors.primary,
                                         }}>{ITEM.hasile}</Text>
                                     </View>
@@ -352,11 +355,11 @@ export default function ScreeningDetail2({ navigation, route }) {
                                     }}>
                                         <Text style={{
                                             flex: 1,
-                                            ...fonts.headline4,
+                                            ...fonts.headline5,
                                             color: colors.black,
                                         }}>Masalah Perilaku (C)</Text>
                                         <Text style={{
-                                            ...fonts.headline4,
+                                            ...fonts.headline5,
                                             color: colors.primary,
                                         }}>{ITEM.hasilc}</Text>
                                     </View>
@@ -369,11 +372,11 @@ export default function ScreeningDetail2({ navigation, route }) {
                                     }}>
                                         <Text style={{
                                             flex: 1,
-                                            ...fonts.headline4,
+                                            ...fonts.headline5,
                                             color: colors.black,
                                         }}>Hiperaktivitas (H)</Text>
                                         <Text style={{
-                                            ...fonts.headline4,
+                                            ...fonts.headline5,
                                             color: colors.primary,
                                         }}>{ITEM.hasilh}</Text>
                                     </View>
@@ -386,13 +389,30 @@ export default function ScreeningDetail2({ navigation, route }) {
                                     }}>
                                         <Text style={{
                                             flex: 1,
-                                            ...fonts.headline4,
+                                            ...fonts.headline5,
                                             color: colors.black,
                                         }}>Masalah Teman Sebaya (P)</Text>
                                         <Text style={{
-                                            ...fonts.headline4,
+                                            ...fonts.headline5,
                                             color: colors.primary,
                                         }}>{ITEM.hasilp}</Text>
+                                    </View>
+                                    <View style={{
+                                        padding: 10,
+                                        backgroundColor: colors.secondary,
+                                        flexDirection: 'row',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: Color.blueGray[300]
+                                    }}>
+                                        <Text style={{
+                                            flex: 1,
+                                            ...fonts.headline5,
+                                            color: colors.black,
+                                        }}>Total Skor Kesulitan</Text>
+                                        <Text style={{
+                                            ...fonts.headline5,
+                                            color: colors.primary,
+                                        }}>{ITEM.hasiltotal}</Text>
                                     </View>
                                     <View style={{
                                         padding: 10,
@@ -413,11 +433,11 @@ export default function ScreeningDetail2({ navigation, route }) {
                                     }}>
                                         <Text style={{
                                             flex: 1,
-                                            ...fonts.headline4,
+                                            ...fonts.headline5,
                                             color: colors.black,
                                         }}>Perilaku Prososial (Pr)</Text>
                                         <Text style={{
-                                            ...fonts.headline4,
+                                            ...fonts.headline5,
                                             color: colors.primary,
                                         }}>{ITEM.hasilpr}</Text>
                                     </View>
@@ -439,18 +459,50 @@ export default function ScreeningDetail2({ navigation, route }) {
                             }}>Silakan tonton video di bawah ini :</Text>
                         </View>
 
-                        <FlatList data={ITEM.hasil == 'NORMAL' ? youtube.filter(i => i.fid_kategori == 1) : youtube.filter(i => i.fid_kategori == 2)} renderItem={({ item, index }) => {
-                            return (
-                                <View style={{
-                                    marginVertical: 8,
-                                }}>
-                                    <YoutubePlayer
-                                        height={windowWidth / 2}
-                                        videoId={item.youtube}
-                                    />
-                                </View>
-                            )
-                        }} />
+                        {ITEM.hasile == 'Normal' && ITEM.hasilc == 'Normal' && ITEM.hasilh == 'Normal' && ITEM.hasilp == 'Normal' && ITEM.hasilpr == 'Normal' ?
+
+                            <FlatList data={youtube.filter(i => i.nama_kategori == 'Normal')} renderItem={({ item, index }) => {
+                                return (
+                                    <View style={{
+                                        marginVertical: 8,
+                                    }}>
+                                        <Text style={{
+                                            padding: 5,
+                                            backgroundColor: colors.primary,
+                                            color: colors.white,
+                                            ...fonts.caption
+                                        }}>{item.nama_kategori}</Text>
+                                        <YoutubePlayer
+                                            height={windowWidth / 2}
+                                            videoId={item.youtube}
+                                        />
+                                    </View>
+                                )
+                            }} /> :
+
+
+                            <View>
+                                <FlatList data={youtube.filter(i => { return (i.nama_kategori == `Gejala Emosional (E) ${ITEM.hasile}` || i.nama_kategori == `Masalah Perilaku (C) ${ITEM.hasilc}` || i.nama_kategori == `Hiperaktivitas (H) ${ITEM.hasilh}` || i.nama_kategori == `Masalah Teman Sebaya (P) ${ITEM.hasilp}` || i.nama_kategori == `Perilaku Prososial (Pr) ${ITEM.hasilpr}`) })} renderItem={({ item, index }) => {
+                                    return (
+                                        <View style={{
+                                            marginVertical: 8,
+                                        }}>
+                                            <Text style={{
+                                                padding: 5,
+                                                backgroundColor: colors.primary,
+                                                color: colors.white,
+                                                ...fonts.caption
+                                            }}>{item.nama_kategori}</Text>
+                                            <YoutubePlayer
+                                                height={windowWidth / 2}
+                                                videoId={item.youtube}
+                                            />
+                                        </View>
+                                    )
+                                }} />
+                            </View>
+
+                        }
                     </ScrollView>
 
                 </View>

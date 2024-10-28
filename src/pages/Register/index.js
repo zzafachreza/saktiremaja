@@ -213,8 +213,8 @@ export default function Register({ navigation, route }) {
                         <MyGap jarak={10} />
                         <MyPicker label="Jenis Kelamin" data={[
                             { label: 'Pilih Jenis Kelamin' },
-                            { label: 'Laki-laki', value: 'laki=laki' },
-                            { label: 'Perempuan', value: 'perempuan' },
+                            { label: 'Laki-laki', value: 'laki-laki' },
+                            { label: 'Perempuan', value: 'Perempuan' },
 
                         ]} value={kirim.jenis_kelamin}
                             onValueChange={(x) => setKirim({ ...kirim, jenis_kelamin: x })}
@@ -239,7 +239,7 @@ export default function Register({ navigation, route }) {
                         <MyGap jarak={10} />
                         <MyInput
 
-                            label="Nomor Telepon SIswa"
+                            label="Nomor Telepon Siswa"
                             placeholder="Isi Nomor Telepon Siswa"
                             value={kirim.telepon}
                             onChangeText={(x) => setKirim({ ...kirim, telepon: x })}

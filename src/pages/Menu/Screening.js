@@ -58,12 +58,12 @@ export default function Screening({ navigation, route }) {
             <Text style={{
               flex: 1,
               ...fonts.subheadline3,
-              color: item.hasil == 'NORMAL' ? colors.success : colors.danger
+              color: item.hasile == 'Normal' && item.hasilc == 'Normal' && item.hasilh == 'Normal' && item.hasilp == 'Normal' && item.hasilpr == 'Normal' && item.hasil == 'SAKIT' ? colors.success : item.hasil == 'NORMAL' ? colors.success : colors.danger
             }}>
-              {item.hasil == 'NORMAL' ? 'Selamat kamu tidak mengalami masalah psikologis dan emosional, yuk pelajari cara agar kamu tetap sehat dan jauh dari masalah psikososial.' : 'Kamu mengalami gejala gangguan mental emosional segera menghubungi petugas untuk mendapatkan bantuan'}
+              {item.hasile == 'Normal' && item.hasilc == 'Normal' && item.hasilh == 'Normal' && item.hasilp == 'Normal' && item.hasilpr == 'Normal' && item.hasil == 'SAKIT' ? 'Selamat kamu tidak mengalami gangguan mental emosional yang bermakna, yuk ikuti past intervensi ini agar kamu semakin sehat' : item.hasil == 'NORMAL' ? 'Selamat kamu tidak mengalami masalah psikologis dan emosional, yuk pelajari cara agar kamu tetap sehat dan jauh dari masalah psikososial.' : 'Kamu mengalami gejala gangguan mental emosional segera menghubungi petugas untuk mendapatkan bantuan'}
             </Text>
             <Image
-              source={item.hasil == 'NORMAL' ? require('../../assets/done_icon.png') : require('../../assets/warning_red.png')}
+              source={item.hasile == 'Normal' && item.hasilc == 'Normal' && item.hasilh == 'Normal' && item.hasilp == 'Normal' && item.hasilpr == 'Normal' && item.hasil == 'SAKIT' ? require('../../assets/done_icon.png') : item.hasil == 'NORMAL' ? require('../../assets/done_icon.png') : require('../../assets/warning_red.png')}
               style={{
                 width: windowWidth / 4,
                 height: windowWidth / 4,

@@ -118,7 +118,25 @@ export default function ({ navigation, route }) {
                         margin: 5,
                         flex: 1,
                     }}>
+                        <View style={{
+                            alignSelf: 'center',
+                            width: 100,
+                            height: 100,
+                            borderWidth: 1,
+                            borderColor: Color.blueGray[100],
+                            overflow: 'hidden',
+                            borderRadius: 20,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Image style={{
+                                width: 100,
+                                height: 100,
+                            }} source={{
+                                uri: user.file_pengguna,
+                            }} />
 
+                        </View>
                         <View style={{ padding: 10, }}>
 
                             <MyList label="Nama Sekolah" value={user.nama_sekolah} />
